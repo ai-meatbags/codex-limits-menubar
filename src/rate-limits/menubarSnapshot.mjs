@@ -172,10 +172,28 @@ function formatReset(timestamp) {
     return 'unknown';
   }
 
-  return new Intl.DateTimeFormat('en-US', {
+  const now = new Date();
+  const timeLabel = new Intl.DateTimeFormat('en-US', {
     hour: '2-digit',
     minute: '2-digit'
   }).format(date);
+
+  if (isSameLocalDay(date, now)) {
+    return `today ${timeLabel}`;
+  }
+
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  if (isSameLocalDay(date, tomorrow)) {
+    return `tomorrow ${timeLabel}`;
+  }
+
+  const dateOptions = now.getFullYear() === date.getFullYear()
+    ? { month: 'short', day: 'numeric' }
+    : { year: 'numeric', month: 'short', day: 'numeric' };
+  const dateLabel = new Intl.DateTimeFormat('en-US', dateOptions).format(date);
+
+  return `${dateLabel}, ${timeLabel}`;
 }
 
 function formatBucketSubtitle(bucket) {
@@ -195,6 +213,14 @@ function normalizeDate(timestamp) {
   }
 
   return new Date(timestamp);
+}
+
+function isSameLocalDay(left, right) {
+  return (
+    left.getFullYear() === right.getFullYear() &&
+    left.getMonth() === right.getMonth() &&
+    left.getDate() === right.getDate()
+  );
 }
 
 function formatWindow(minutes) {

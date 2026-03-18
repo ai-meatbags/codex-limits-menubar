@@ -6,9 +6,19 @@
 
 Оно читает usage-данные из локальной установки `codex` и держит этот сигнал прямо в menu bar, чтобы не приходилось постоянно открывать экран usage и проверять остаток вручную.
 
+**Скачать:** [Последний релиз](https://github.com/ai-meatbags/codex-limits-menubar/releases/latest) · [Прямой macOS zip](https://github.com/ai-meatbags/codex-limits-menubar/releases/latest/download/CodexLimitsMenuBar-macos-latest.zip)
+
+![Скриншот Codex Limits Menu Bar](docs/images/menubar-screenshot.png)
+
 ## Зачем это нужно
 
 Лимиты Codex — важный операционный сигнал, но стандартный путь требует открывать интерфейс и проверять usage вручную. Это приложение выносит этот сигнал в macOS menu bar, чтобы быстрее понимать, можно ли продолжать интенсивную работу или пора экономить запросы.
+
+## Модель доверия
+
+- единственный источник правды: локальный `codex app-server`
+- никакого browser scraping, переиспользования сессий или приватных web endpoints
+- никаких stale или выдуманных данных: при сбое приложение показывает unavailable snapshot
 
 ## Что показывает приложение
 
@@ -55,6 +65,21 @@ npm run menubar:app:build
 npm run release:artifact
 ```
 
+Сгенерировать скриншот для README:
+
+```bash
+npm run menubar:app:screenshot
+```
+
+Теперь команда выпускает и версионные артефакты, и стабильный alias для будущего `latest`-линка:
+
+```bash
+dist/CodexLimitsMenuBar-v<version>-macos.zip
+dist/CodexLimitsMenuBar-v<version>-macos.zip.sha256
+dist/CodexLimitsMenuBar-macos-latest.zip
+dist/CodexLimitsMenuBar-macos-latest.zip.sha256
+```
+
 Собранное приложение появится здесь:
 
 ```bash
@@ -66,6 +91,8 @@ dist/CodexLimitsMenuBar.app
 ```bash
 dist/CodexLimitsMenuBar-v<version>-macos.zip
 dist/CodexLimitsMenuBar-v<version>-macos.zip.sha256
+dist/CodexLimitsMenuBar-macos-latest.zip
+dist/CodexLimitsMenuBar-macos-latest.zip.sha256
 ```
 
 Папка `dist/` — это выходная папка для release-сборок и готовых артефактов.

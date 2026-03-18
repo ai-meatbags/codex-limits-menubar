@@ -6,9 +6,19 @@ Native macOS menu bar app that shows your current Codex usage limits.
 
 It reads usage data from your local `codex` installation and keeps the signal visible in the menu bar, so you do not need to keep opening the usage screen to see how much budget is left.
 
+**Download:** [Latest release](https://github.com/ai-meatbags/codex-limits-menubar/releases/latest) · [Direct macOS zip](https://github.com/ai-meatbags/codex-limits-menubar/releases/latest/download/CodexLimitsMenuBar-macos-latest.zip)
+
+![Codex Limits Menu Bar screenshot](docs/images/menubar-screenshot.png)
+
 ## Why this exists
 
 Codex usage limits are useful operational feedback, but the default flow requires opening a UI and checking usage manually. This app keeps that signal visible in the macOS menu bar so you can decide faster whether to continue a session or slow down.
+
+## Trust model
+
+- single source of truth: local `codex app-server`
+- no browser scraping, session reuse, or private web endpoints
+- no stale or invented data on failure; the app shows an unavailable snapshot instead
 
 ## What the app shows
 
@@ -55,6 +65,21 @@ Package a GitHub-ready release artifact:
 npm run release:artifact
 ```
 
+Render the README screenshot:
+
+```bash
+npm run menubar:app:screenshot
+```
+
+That command emits both versioned release assets and a stable latest alias for future releases:
+
+```bash
+dist/CodexLimitsMenuBar-v<version>-macos.zip
+dist/CodexLimitsMenuBar-v<version>-macos.zip.sha256
+dist/CodexLimitsMenuBar-macos-latest.zip
+dist/CodexLimitsMenuBar-macos-latest.zip.sha256
+```
+
 The built app is placed at:
 
 ```bash
@@ -66,6 +91,8 @@ The packaged release artifacts are placed in:
 ```bash
 dist/CodexLimitsMenuBar-v<version>-macos.zip
 dist/CodexLimitsMenuBar-v<version>-macos.zip.sha256
+dist/CodexLimitsMenuBar-macos-latest.zip
+dist/CodexLimitsMenuBar-macos-latest.zip.sha256
 ```
 
 `dist/` is the output folder for release builds and packaged artifacts.

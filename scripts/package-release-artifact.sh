@@ -9,13 +9,20 @@ VERSION="$(node -p "require('$ROOT_DIR/package.json').version")"
 ARCHIVE_BASENAME="CodexLimitsMenuBar-v${VERSION}-macos"
 ARCHIVE_PATH="$DIST_DIR/$ARCHIVE_BASENAME.zip"
 CHECKSUM_PATH="$ARCHIVE_PATH.sha256"
+LATEST_ARCHIVE_BASENAME="CodexLimitsMenuBar-macos-latest"
+LATEST_ARCHIVE_PATH="$DIST_DIR/$LATEST_ARCHIVE_BASENAME.zip"
+LATEST_CHECKSUM_PATH="$LATEST_ARCHIVE_PATH.sha256"
 
 bash "$ROOT_DIR/scripts/build-codex-limits-menubar-swift-app.sh"
 
-rm -f "$ARCHIVE_PATH" "$CHECKSUM_PATH"
+rm -f "$ARCHIVE_PATH" "$CHECKSUM_PATH" "$LATEST_ARCHIVE_PATH" "$LATEST_CHECKSUM_PATH"
 cd "$DIST_DIR"
 /usr/bin/zip -r "$ARCHIVE_PATH" "CodexLimitsMenuBar.app" >/dev/null
 /usr/bin/shasum -a 256 "$(basename "$ARCHIVE_PATH")" > "$CHECKSUM_PATH"
+/bin/cp "$ARCHIVE_PATH" "$LATEST_ARCHIVE_PATH"
+/usr/bin/shasum -a 256 "$(basename "$LATEST_ARCHIVE_PATH")" > "$LATEST_CHECKSUM_PATH"
 
 echo "Created $ARCHIVE_PATH"
 echo "Created $CHECKSUM_PATH"
+echo "Created $LATEST_ARCHIVE_PATH"
+echo "Created $LATEST_CHECKSUM_PATH"

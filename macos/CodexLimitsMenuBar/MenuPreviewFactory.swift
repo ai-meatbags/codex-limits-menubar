@@ -4,14 +4,23 @@ struct MenuPreviewFactory {
     private static let previewWidth: CGFloat = 340
 
     static func usageBarsItem(snapshot: MenubarSnapshot) -> NSMenuItem? {
-        guard !snapshot.buckets.isEmpty else {
+        guard let previewView = usageBarsPreviewView(snapshot: snapshot) else {
             return nil
         }
 
         let item = NSMenuItem()
-        item.view = usageBarsView(snapshot: snapshot)
+        item.view = previewView
         return item
     }
+
+    static func usageBarsPreviewView(snapshot: MenubarSnapshot) -> NSView? {
+        guard !snapshot.buckets.isEmpty else {
+            return nil
+        }
+
+        return usageBarsView(snapshot: snapshot)
+    }
+
     private static func usageBarsView(snapshot: MenubarSnapshot) -> NSView {
         let appearance = NSApp.effectiveAppearance
         let root = verticalStack(spacing: 8)
