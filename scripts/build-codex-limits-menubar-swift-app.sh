@@ -8,6 +8,7 @@ APP_PATH="$DIST_DIR/CodexLimitsMenuBar.app"
 MACOS_DIR="$APP_PATH/Contents/MacOS"
 RESOURCES_DIR="$APP_PATH/Contents/Resources"
 RUNTIME_DIR="$RESOURCES_DIR/runtime"
+APP_VERSION="$(node -p "require('$ROOT_DIR/package.json').version")"
 
 rm -rf "$APP_PATH"
 mkdir -p "$MACOS_DIR" "$RUNTIME_DIR"
@@ -30,9 +31,9 @@ cat > "$APP_PATH/Contents/Info.plist" <<EOF
   <key>CFBundlePackageType</key>
   <string>APPL</string>
   <key>CFBundleShortVersionString</key>
-  <string>0.1.0</string>
+  <string>$APP_VERSION</string>
   <key>CFBundleVersion</key>
-  <string>1</string>
+  <string>$APP_VERSION</string>
   <key>LSUIElement</key>
   <true/>
 </dict>
@@ -58,4 +59,5 @@ xcrun swiftc \
 
 chmod +x "$MACOS_DIR/CodexLimitsMenuBar"
 echo "Built $APP_PATH"
+echo "Version: $APP_VERSION"
 echo "Logs: ~/Library/Logs/CodexLimitsMenuBar/app.log"

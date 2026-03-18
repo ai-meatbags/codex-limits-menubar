@@ -6,6 +6,7 @@
   "scripts": {
     "menubar:app": "bash scripts/run-codex-limits-menubar-app.sh",
     "menubar:app:build": "bash scripts/build-codex-limits-menubar-swift-app.sh",
-    "menubar:app:snapshot": "node src/cli/codex-limits-menubar-snapshot.mjs"
+    "menubar:app:snapshot": "node src/cli/codex-limits-menubar-snapshot.mjs",
+    "release:artifact": "bash scripts/package-release-artifact.sh"
   }
 }

@@ -40,11 +40,18 @@ If loading fails, the app falls back to an error snapshot instead of showing sta
 
 ## Requirements
 
+### To run a downloaded release artifact
+
 - macOS
 - `codex` installed locally and available in `PATH`
 - active `codex login`
 - `node` installed locally
+
+### To build from source
+
+- all runtime requirements above
 - Xcode command line tools available (`xcrun swiftc`)
+- no external npm dependencies are required at the moment
 
 ## Quick Start
 
@@ -60,13 +67,26 @@ Build the release bundle without opening it:
 npm run menubar:app:build
 ```
 
+Package a GitHub-ready release artifact:
+
+```bash
+npm run release:artifact
+```
+
 The built app is placed at:
 
 ```bash
 dist/CodexLimitsMenuBar.app
 ```
 
-That `dist/` folder is the release handoff folder for creating a macOS release artifact.
+The packaged release artifacts are placed in:
+
+```bash
+dist/CodexLimitsMenuBar-v<version>-macos.zip
+dist/CodexLimitsMenuBar-v<version>-macos.zip.sha256
+```
+
+That `dist/` folder is the release handoff folder for publishing a macOS release artifact.
 
 ## Runtime Flow
 

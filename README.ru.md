@@ -40,11 +40,18 @@
 
 ## Требования
 
+### Чтобы запустить готовый release artifact
+
 - macOS
 - локально установленный `codex`, доступный в `PATH`
 - активный `codex login`
 - локально установленный `node`
+
+### Чтобы собрать приложение из исходников
+
+- все runtime requirements выше
 - Xcode command line tools (`xcrun swiftc`)
+- внешние npm-зависимости сейчас не требуются
 
 ## Быстрый старт
 
@@ -60,13 +67,26 @@ npm run menubar:app
 npm run menubar:app:build
 ```
 
+Упаковать GitHub-ready release artifact:
+
+```bash
+npm run release:artifact
+```
+
 Собранное приложение появится здесь:
 
 ```bash
 dist/CodexLimitsMenuBar.app
 ```
 
-Папка `dist/` — это release handoff folder, из которой удобно собирать macOS release artifact.
+Упакованные release artifacts появятся здесь:
+
+```bash
+dist/CodexLimitsMenuBar-v<version>-macos.zip
+dist/CodexLimitsMenuBar-v<version>-macos.zip.sha256
+```
+
+Папка `dist/` — это release handoff folder, из которой удобно публиковать macOS release artifact.
 
 ## Runtime Flow
 
