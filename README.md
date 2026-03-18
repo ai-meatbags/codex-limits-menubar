@@ -2,31 +2,13 @@
 
 # Codex Limits Menu Bar
 
-Native macOS menu bar app that shows your current Codex usage limits by talking to the local `codex app-server`.
+Native macOS menu bar app that shows your current Codex usage limits.
 
-This repository is intentionally focused on one supported path:
-
-- data source — local `codex app-server`
-- transport — stdio JSON-RPC
-- menu bar shell — Swift + AppKit
-
-No browser scraping, DOM parsing, Playwright session reuse, or private web endpoints are part of the product.
+It reads usage data from your local `codex` installation and keeps the signal visible in the menu bar, so you do not need to keep opening the usage screen to see how much budget is left.
 
 ## Why this exists
 
 Codex usage limits are useful operational feedback, but the default flow requires opening a UI and checking usage manually. This app keeps that signal visible in the macOS menu bar so you can decide faster whether to continue a session or slow down.
-
-## Design Note
-
-Earlier iterations of this project explored web-based acquisition paths through ChatGPT pages and private endpoints. Those experiments were removed from the open-source version on purpose.
-
-Why:
-
-- they depend on unsupported and brittle behavior
-- they are hard to explain and maintain in a public repo
-- they optimize for a one-off hack, not for a trustworthy open-source tool
-
-The public version uses a single architectural bet: if the local Codex client can expose rate-limit information through `codex app-server`, the menu bar app should consume exactly that and nothing else.
 
 ## What the app shows
 
@@ -86,9 +68,9 @@ dist/CodexLimitsMenuBar-v<version>-macos.zip
 dist/CodexLimitsMenuBar-v<version>-macos.zip.sha256
 ```
 
-That `dist/` folder is the release handoff folder for publishing a macOS release artifact.
+`dist/` is the output folder for release builds and packaged artifacts.
 
-## Runtime Flow
+## How it works
 
 1. The Swift menu bar app starts.
 2. It launches the bundled Node snapshot script.
@@ -100,7 +82,7 @@ That `dist/` folder is the release handoff folder for publishing a macOS release
 5. The response is normalized into a compact snapshot shape.
 6. Swift renders the snapshot in the menu bar and refreshes periodically.
 
-The release bundle does not bake the builder machine's absolute `node` or `codex` paths into the app. At runtime it looks for standard CLI locations and also respects explicit overrides.
+The release bundle looks up `node` and `codex` on the machine where the app is launched and also respects explicit overrides when needed.
 
 ## Project Structure
 
@@ -154,14 +136,3 @@ Check:
 - `xcrun swiftc` is available
 - `node` is available
 - `codex` is installed before building, because the bundle captures its path into runtime config
-
-## Product Boundaries
-
-This repository does not aim to:
-
-- reverse engineer ChatGPT web traffic
-- store browser sessions or cookies
-- depend on private or undocumented web endpoints
-- support non-macOS menu bar environments
-
-That constraint is a feature, not a limitation: the open-source version should stay understandable, auditable, and supportable.

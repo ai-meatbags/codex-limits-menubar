@@ -7,7 +7,7 @@ First public release.
 - Native macOS menu bar app built with Swift and AppKit
 - Usage snapshot flow powered by local `codex app-server`
 - English and Russian README variants
-- Portable release bundle that does not hardcode the builder machine's `node` or `codex` paths
+- Release bundle that resolves `node` and `codex` on the target machine
 - Dark-theme fix for the custom menu preview
 
 ## Requirements
@@ -24,5 +24,4 @@ First public release.
 
 ## Notes
 
-- This project intentionally does not use browser scraping, private ChatGPT endpoints, or persisted browser sessions
 - The app expects `codex` and `node` to be present on the machine where the release artifact is launched
